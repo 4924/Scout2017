@@ -1,0 +1,85 @@
+#gear {
+  text-align: center;
+  position: absolute; left: 1%; top: 15%;
+  border: 2px solid black;
+  width: 30%;
+  height: 50%;
+}
+
+#ball {
+  text-align: center;
+  position: absolute; left: 32%; top: 15%;
+  border: 2px solid black;
+  width: 40%;
+  height: 50%;
+}
+
+#auto {
+  text-align: center;
+  position: absolute; left: 73%; top: 15%;
+  border: 2px solid black;
+  width: 26%;
+  height: 50%;
+}
+
+#cap {
+  text-align: center;
+  position: absolute; left: 1%; bottom: 1%;
+  border: 2px solid black;
+  width: 60%;
+  height: 32%;
+}
+
+#gear-up {
+  width: 8em;
+  height: 3em;
+  font-size: 1.5em;
+}
+
+#high-ball {
+    width: 35%;
+    height: 40%;
+    font-size: 1.5em;
+    position: inherit;; left: 5%; top: 20%;
+}
+
+#s{
+  width: 15%;
+  font-size: 1em;
+  position: inherit;; left: 43.75%; top: 20%;
+}
+
+#m{
+  width: 15%;
+  font-size: 1em;
+  position: inherit; left: 62.5%; top: 20%;
+}
+
+#l{
+  width: 15%;
+  font-size: 1em;
+  position: inherit;; left: 81.25%; top: 20%;
+}
+
+#dump{
+  width: 25%;
+  height: 20%;
+  font-size: 1.5em;
+  position: inherit;; left: 58%; top: 50%;
+}
+
+#auto-gear {
+
+}
+#auto-low {
+
+}
+#auto-high {
+
+}
+#auto-line {
+
+}
+#rope {
+
+}
