@@ -2,6 +2,8 @@ var express = require('express')
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var save = {"gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+
 app.use(express.static('pub'))
 app.get('/', function(req, res){
   res.sendFile('/pub/index.html');
@@ -10,16 +12,15 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('gear', function(msg){
-  console.log('gear: ' + msg);
+  save.gear = msg;
+  console.log(save);
   });
-  socket.on('highball', function(msg){
-  console.log('highball: ' + msg);
-  });
-  socket.on('ballload', function(msg){
-  console.log('ballload: ' + msg);
-  });
-  socket.on('lowball', function(msg){
-  console.log('lowball: ' + msg);
+  socket.on('data', function(msg){
+  console.log(msg.team);
+  console.log(msg.type);
+  console.log(msg.data);
+  save[msg.type] = msg.data;
+  console.log(save);
   });
   socket.on('disconnect', function(){
   console.log('user disconnected');

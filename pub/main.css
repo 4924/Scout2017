@@ -30,18 +30,18 @@
   height: 32%;
 }
 
-#gear-up {
+#gearup {
   width: 50%;
   height: 30%;
   font-size: 2.5em;
 }
 
-#gear-down {
+#geardown {
   width: 18%;
   font-size: 1.3em;
 }
 
-#high-ball {
+#highball {
     width: 35%;
     height: 40%;
     font-size: 2.5em;
@@ -73,25 +73,25 @@
   position: inherit;; left: 55%; top: 50%;
 }
 
-#auto-gear {
+#autogear {
   width: 20%;
   font-size: 1.3em;
   position: inherit;; left: 15%; top: 20%;
 }
 
-#auto-low {
+#autolow {
   width: 20%;
   font-size: 1.3em;
   position: inherit;; left: 65%; top: 20%;
 }
 
-#auto-high {
+#autohigh {
   width: 20%;
   font-size: 1.3em;
   position: inherit;; left: 65%; top: 40%;
 }
 
-#auto-line {
+#autoline {
   width: 20%;
   font-size: 1.3em;
   position: inherit;; left: 15%; top: 40%;
@@ -115,13 +115,13 @@
   position: inherit; left: 4%; top: 75%;
 }
 
-#ground-gear {
+#groundgear {
   width: 20%;
   font-size: 1.3em;
   position: inherit; left: 28%; top: 30%;
 }
 
-#ground-ball {
+#groundball {
   width: 20%;
   font-size: 1.3em;
   position: inherit; left: 28%; top: 75%;
@@ -139,13 +139,13 @@
   position: inherit; left: 52%; top: 75%;
 }
 
-#macro-gear{
+#macrogear{
   width: 20%;
   font-size: 1.3em;
   position: inherit; left: 76%; top: 30%;
 }
 
-#macro-ball{
+#macroball{
   width: 20%;
   font-size: 1.3em;
   position: inherit; left: 76%; top: 75%;
@@ -155,6 +155,30 @@
   position: inherit; left: 20%; top: 70%;
 }
 
+#low-ball-score{
+  position: inherit; left: 70%; top: 80%;
+}
+
 .selected{
   border: 2px solid black;
+  padding: 0;
+  outline: 0;
+}
+
+.selected:hover{
+  border: 2px solid black;
+  padding: 0;
+  outline: 0;
+}
+
+.selected:active{
+  border: 2px solid black;
+  padding: 0;
+  outline: 0;
+}
+
+.selected:focus{
+  border: 2px solid black;
+  padding: 0;
+  outline: 0;
 }
