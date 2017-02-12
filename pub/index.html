@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <meta charset="UTF-8">
+    <title>Scout</title>
+  </head>
+  <body>
+    <div id="gear">
+      <h2>Gears</h2>
+      <button id="gear-up" onClick="upgear()">Up</button>
+      <h1 id="gears">0</h1>
+      <button id="gear-down" onClick="downgear()">Down</button>
+    </div>
+    <div id="ball">
+      <h2>Balls</h2>
+      <button id="high-ball" onClick="highball()">High Goal</button>
+      <h1 id="high-ball-score">0</h1>
+      <button id="s" onClick="smallball()">Small</button>
+      <button id="m" onClick="mediumball()">Medium</button>
+      <button id="l" onClick="largeball()">Large</button>
+      <button id="dump" onClick="lowball()">Low Goal</button>
+    </div>
+    <div id="auto">
+      <h2>Auto</h2>
+      <button id="auto-gear" onClick="autogear()">Gear</button>
+      <button id="auto-low" onClick="autolow()">Low Goal</button>
+      <button id="auto-high" onClick="autohigh()">High Goal</button>
+      <button id="auto-line" onClick="autoline()">Cross Line</button>
+      <button id="rope" onClick="autorope()">Rope</button>
+    </div>
+    <div id="cap">
+      <h2>Capacity</h2>
+      <button id="mechanum" onClick="mechanum()">Mechanum</button>
+      <button id="standard" onClick="standard()">Standard</button>
+      <button id="ground-gear" onClick="groundgear()">Ground Gear</button>
+      <button id="ground-ball" onClick="groundball()">Ground Ball</button>
+      <button id="player" onClick="player()">Player Station</button>
+      <button id="hopper" onClick="hopper()">Hopper Station</button>
+      <button id="macro-gear" onClick="macrogear()">Auto Gear Score</button>
+      <button id="macro-ball" onClick="macroball()">Auto High Goal</button>
+    </div>
+  </body>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    var gears = 0;
+    var highballscore = 0;
+    var lowball = 0;
+    var ballload = 0;
+
+    var upgear = function() {
+      console.log("upgear");
+      gears += 1;
+      socket.emit("gear", gears);
+      document.getElementById('gears').innerHTML = gears;
+    };
+
+    var downgear = function() {
+      console.log("downgear");
+      gears -= 1;
+      socket.emit("gear", gears);
+      document.getElementById('gears').innerHTML = gears;
+    };
+
+    var highball= function() {
+      highballscore += 1;
+      socket.emit("highball", highballscore);
+      console.log("highball");
+      document.getElementById("high-ball-score").innerHTML = highballscore;
+    };
+
+    var smallball = function() {
+      ballload = 1;
+      socket.emit("ballload", ballload);
+      console.log("smallball");
+      document.getElementById('s').classList.add("selected")
+      document.getElementById('m').classList.remove("selected")
+      document.getElementById('l').classList.remove("selected")
+    };
+
+    var mediumball = function() {
+      ballload = 2;
+      socket.emit("ballload", ballload);
+      console.log("mediumball");
+      document.getElementById('s').classList.remove("selected")
+      document.getElementById('m').classList.add("selected")
+      document.getElementById('l').classList.remove("selected")
+    };
+
+    var largeball = function() {
+      ballload = 3;
+      socket.emit("mainload", ballload);
+      console.log("largeball");
+      document.getElementById('s').classList.remove("selected")
+      document.getElementById('m').classList.remove("selected")
+      document.getElementById('l').classList.add("selected")
+    };
+
+    var lowball = function() {
+      lowball += 1;
+      socket.emit("lowball", lowball);
+      console.log("lowball");
+    };
+
+    var autogear = function() {
+      socket.emit("main", "autogear");
+      console.log("autogear");
+    };
+
+    var autolow = function() {
+      socket.emit("main", "autolow");
+      console.log("autolow");
+    };
+
+    var autohigh = function() {
+      socket.emit("main", "autohigh");
+      console.log("autohigh");
+    };
+
+    var autoline = function() {
+      socket.emit("main", "autoline");
+      console.log("autoline");
+    };
+
+    var autorope = function() {
+      socket.emit("main", "autorope");
+      console.log("autorope");
+    };
+
+    var mechanum = function() {
+      socket.emit("main", "mechanum");
+      console.log("mechanum");
+    };
+
+    var standard = function() {
+      socket.emit("main", "standard");
+      console.log("standard");
+    };
+
+    var groundgear = function() {
+      socket.emit("main", "groundgear");
+      console.log("groundgear");
+    };
+
+    var groundball = function() {
+      socket.emit("main", "groundball");
+      console.log("groundball");
+    };
+
+    var player = function() {
+      socket.emit("main", "player");
+      console.log("player");
+    };
+
+    var hopper = function() {
+      socket.emit("main", "hopper");
+      console.log("hopper");
+    };
+
+    var macrogear = function() {
+      socket.emit("main", "macrogear");
+      console.log("macrogear");
+    };
+
+    var macroball = function() {
+      socket.emit("main", "macroball");
+      console.log("macroball");
+    };
+
+
+  </script>
+</html>

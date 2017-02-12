@@ -150,3 +150,11 @@
   font-size: 1.3em;
   position: inherit; left: 76%; top: 75%;
 }
+
+#high-ball-score{
+  position: inherit; left: 20%; top: 70%;
+}
+
+.selected{
+  border: 2px solid black;
+}

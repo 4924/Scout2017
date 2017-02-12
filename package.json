@@ -1,0 +1,9 @@
+{
+  "name": "Scout2017",
+  "version": "1",
+  "description": "Scouting app",
+  "dependencies": {
+    "express": "^4.14.1",
+    "socket.io": "^1.7.2"
+  }
+}
