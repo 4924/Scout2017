@@ -6,6 +6,42 @@
   height: 50%;
 }
 
+#menu {
+  text-align: left;
+  position: absolute; left: 1%; top: 1%;
+  border: 2px solid black;
+  width: 98%;
+  height: 13%;
+  padding: 0%;
+}
+
+#matchbox {
+  width: 8%;
+  height: 60%;
+  position: inherit; left: 8%; top: 18%;
+  font-size: 300%;
+}
+
+#teambox {
+  width: 10%;
+  height: 60%;
+  position: inherit; left: 27%; top: 18%;
+  font-size: 300%;
+}
+
+#teamtext {
+  position: inherit; left: 20%; top: 15%;
+}
+
+#matchtext {
+  position: inherit; left: 1%; top: 15%;
+}
+
+h2 {
+  padding: 0%;
+  margin: 1%;
+}
+
 #ball {
   text-align: center;
   position: absolute; left: 32%; top: 15%;

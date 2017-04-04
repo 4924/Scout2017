@@ -2,15 +2,27 @@ var express = require('express')
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var save = {"gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+var path = require('path');
 
-app.use(express.static('pub'))
+var emptyMatch = function() {
+  return {"gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+};
+
+var matches = [["4924", 1, false], ["3861", 4, false], ["180", 4, false], ["5005", 5, false]];
+var save = {};
+
+app.use(express.static(path.join(__dirname, '/pub')));
 app.get('/', function(req, res){
-  res.sendFile('/pub/index.html');
+  res.sendFile('index.html');
+});
+
+app.get('/match/:id', function(req, res){
+  res.sendFile(path.join(__dirname, '/pub', '/match.html'));
 });
 
 io.on('connection', function(socket){
   console.log('a user connected');
+  socket.emit('matches', matches);
   socket.on('gear', function(msg){
   save.gear = msg;
   console.log(save);

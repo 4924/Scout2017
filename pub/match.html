@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/match.css" />
+    <meta charset="UTF-8">
+    <title>Scout</title>
+  </head>
+  <body>
+    <div id="menu">
+      <h2 id="matchtext">Match:</h2>
+      <input type="text" id="matchbox" onKeyUp="matchChange();"></input>
+      <h2 id="teamtext">Team:</h2>
+      <input type="text" id="teambox" onKeyUp="teamChange();"></input>
+    </div>
+    <div id="gear">
+      <h2>Gears</h2>
+      <button id="gearup" onClick="upgear()">Up</button>
+      <h1 id="gears">0</h1>
+      <button id="geardown" onClick="downgear()">Down</button>
+    </div>
+    <div id="ball">
+      <h2>Balls</h2>
+      <button id="highball" onClick="highball()">High Goal</button>
+      <h1 id="high-ball-score">0</h1>
+      <button id="s" onClick="smallball()">Small</button>
+      <button id="m" onClick="mediumball()">Medium</button>
+      <button id="l" onClick="largeball()">Large</button>
+      <button id="dump" onClick="lowball()">Low Goal</button>
+      <h1 id="low-ball-score">0</h1>
+    </div>
+    <div id="auto">
+      <h2>Auto</h2>
+      <button id="autogear" onClick="toggle(this)">Gear</button>
+      <button id="autolow" onClick="toggle(this)">Low Goal</button>
+      <button id="autohigh" onClick="toggle(this)">High Goal</button>
+      <button id="autoline" onClick="toggle(this)">Cross Line</button>
+      <button id="rope" onClick="toggle(this)">Rope</button>
+    </div>
+    <div id="cap">
+      <h2>Capacity</h2>
+      <button id="mechanum" onClick="mechanum()">Mechanum</button>
+      <button id="standard" onClick="standard()">Standard</button>
+      <button id="groundgear" onClick="toggle(this)">Ground Gear</button>
+      <button id="groundball" onClick="toggle(this)">Ground Ball</button>
+      <button id="player" onClick="toggle(this)">Player Station</button>
+      <button id="hopper" onClick="toggle(this)">Hopper Station</button>
+      <button id="macrogear" onClick="toggle(this)">Auto Gear Score</button>
+      <button id="macroball" onClick="toggle(this)">Auto High Goal</button>
+    </div>
+  </body>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    var save = {"team": 0, "match": 0, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+
+    var upgear = function() {
+      console.log("upgear");
+      save["gears"] += 1;
+      socket.emit("data", {team:4924, type:"gears", data:save["gears"]});
+      document.getElementById('gears').innerHTML = save["gears"];
+    };
+
+    var downgear = function() {
+      console.log("downgear");
+      save["gears"] -= 1;
+      socket.emit("data", {team:4924, type:"gears", data:save["gears"]});
+      document.getElementById('gears').innerHTML = save["gears"];
+    };
+
+    var highball= function() {
+      save["highball"] += 1;
+      socket.emit("data", {team:4924, type:"highball", data:save["highball"]});
+      console.log("highball");
+      document.getElementById("high-ball-score").innerHTML = save["highball"];
+    };
+
+    var smallball = function() {
+      save["ballload"] = 1;
+      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      console.log("smallball");
+      document.getElementById('s').classList.add("selected")
+      document.getElementById('m').classList.remove("selected")
+      document.getElementById('l').classList.remove("selected")
+    };
+
+    var mediumball = function() {
+      save["ballload"] = 2;
+      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      console.log("mediumball");
+      document.getElementById('s').classList.remove("selected")
+      document.getElementById('m').classList.add("selected")
+      document.getElementById('l').classList.remove("selected")
+    };
+
+    var largeball = function() {
+      save["ballload"] = 3;
+      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      console.log("largeball");
+      document.getElementById('s').classList.remove("selected")
+      document.getElementById('m').classList.remove("selected")
+      document.getElementById('l').classList.add("selected")
+    };
+
+    var lowball = function() {
+      save["lowball"] += 1;
+      socket.emit("data", {team:4924, type:"lowball", data:save["lowball"]});
+      console.log("lowball");
+      document.getElementById('low-ball-score').innerHTML = save["lowball"];
+    };
+
+    var mechanum = function() {
+      console.log("mechanum");
+      save["drivechain"] = 1;
+      socket.emit("data", {team:4924, type:"drivechain", data:save["drivechain"]});
+      document.getElementById('mechanum').classList.add("selected");
+      document.getElementById('standard').classList.remove("selected");
+    };
+
+    var standard = function() {
+      console.log("standard");
+      save["drivechain"] = 2;
+      socket.emit("data", {team:4924, type:"drivechain", data:save["drivechain"]});
+      document.getElementById('mechanum').classList.remove("selected");
+      document.getElementById('standard').classList.add("selected");
+    };
+
+    var toggle = function(ev) {
+      console.log(ev.id);
+      save[ev.id] = !save[ev.id];
+      socket.emit("data", {team:4924, type:ev.id, data:save[ev.id]});
+      if(save[ev.id]) {
+        document.getElementById(ev.id).classList.add("selected");
+      } else {
+        document.getElementById(ev.id).classList.remove("selected");
+      };
+    };
+
+  </script>
+</html>
