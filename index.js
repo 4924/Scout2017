@@ -8,8 +8,8 @@ var emptyMatch = function(t=0, m=0) {
   return {"team": t, "match": m, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
 };
 
-var matches = [["4924", 1, false], ["3861", 4, false], ["180", 4, false], ["5005", 5, false]];
-var save = {};
+var matches = [["4924", 1, false], ["3861", 1, false], ["180", 4, false], ["5005", 5, false]];
+var save = [];
 
 app.use(express.static(path.join(__dirname, '/pub')));
 app.get('/', function(req, res){
@@ -31,10 +31,15 @@ io.on('connection', function(socket){
   console.log(msg.team);
   console.log(msg.type);
   console.log(msg.data);
-  if(save.length-1<msg.match) {
-    save.push([emptyMatch(msg.team, msg.match), ])
-  }
-  save[msg.type] = msg.data;
+  while(save.length<msg.match) {
+    save.push({});
+  };
+  if(save[msg.match-1].hasOwnProperty(msg.team)) {
+    save[msg.match-1][msg.team][msg.type] = msg.data;
+  } else {
+    save[msg.match-1][msg.team] = emptyMatch(msg.team, msg.match);
+    save[msg.match-1][msg.team][msg.type] = msg.data;
+  };
   console.log(save);
   });
   socket.on('disconnect', function(){
