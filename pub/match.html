@@ -41,6 +41,7 @@
       <button id="macrogear" onClick="toggle(this)">Auto Gear Score</button>
       <button id="macroball" onClick="toggle(this)">Auto High Goal</button>
     </div>
+    <button id="lock" onClick="lockf()">Lock</button>
   </body>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -56,6 +57,12 @@
       save["gears"] += 1;
       socket.emit("data", {team:team, match:match, type:"gears", data:save["gears"]});
       document.getElementById('gears').innerHTML = save["gears"];
+    };
+
+    var lockf = function() {
+      console.log("lock");
+      socket.emit("lock", {team:team, match:match});
+      document.location.href = "/";
     };
 
     var downgear = function() {

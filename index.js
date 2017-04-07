@@ -42,6 +42,16 @@ io.on('connection', function(socket){
   };
   console.log(save);
   });
+  socket.on('lock', function(msg){
+  console.log(msg.team);
+  console.log(msg.match);
+  for(i in matches) {
+    if((matches[i][0] == msg.team) && (matches[i][1] == msg.match)) {
+      matches[i][2] = true;
+    };
+  };
+  console.log(matches);
+  });
   socket.on('disconnect', function(){
   console.log('user disconnected');
   });
