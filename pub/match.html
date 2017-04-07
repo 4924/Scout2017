@@ -6,12 +6,6 @@
     <title>Scout</title>
   </head>
   <body>
-    <div id="menu">
-      <h2 id="matchtext">Match:</h2>
-      <input type="text" id="matchbox" onKeyUp="matchChange();"></input>
-      <h2 id="teamtext">Team:</h2>
-      <input type="text" id="teambox" onKeyUp="teamChange();"></input>
-    </div>
     <div id="gear">
       <h2>Gears</h2>
       <button id="gearup" onClick="upgear()">Up</button>
@@ -52,32 +46,35 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
+    var matches = [];
+    var match = 0;
+    var team = 0;
     var save = {"team": 0, "match": 0, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
 
     var upgear = function() {
       console.log("upgear");
       save["gears"] += 1;
-      socket.emit("data", {team:4924, type:"gears", data:save["gears"]});
+      socket.emit("data", {team:team, match:match, type:"gears", data:save["gears"]});
       document.getElementById('gears').innerHTML = save["gears"];
     };
 
     var downgear = function() {
       console.log("downgear");
       save["gears"] -= 1;
-      socket.emit("data", {team:4924, type:"gears", data:save["gears"]});
+      socket.emit("data", {team:team, match:match, type:"gears", data:save["gears"]});
       document.getElementById('gears').innerHTML = save["gears"];
     };
 
     var highball= function() {
       save["highball"] += 1;
-      socket.emit("data", {team:4924, type:"highball", data:save["highball"]});
+      socket.emit("data", {team:team, match:match, type:"highball", data:save["highball"]});
       console.log("highball");
       document.getElementById("high-ball-score").innerHTML = save["highball"];
     };
 
     var smallball = function() {
       save["ballload"] = 1;
-      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      socket.emit("data", {team:team, match:match, type:"ballload", data:save["ballload"]});
       console.log("smallball");
       document.getElementById('s').classList.add("selected")
       document.getElementById('m').classList.remove("selected")
@@ -86,7 +83,7 @@
 
     var mediumball = function() {
       save["ballload"] = 2;
-      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      socket.emit("data", {team:team, match:match, type:"ballload", data:save["ballload"]});
       console.log("mediumball");
       document.getElementById('s').classList.remove("selected")
       document.getElementById('m').classList.add("selected")
@@ -95,7 +92,7 @@
 
     var largeball = function() {
       save["ballload"] = 3;
-      socket.emit("data", {team:4924, type:"ballload", data:save["ballload"]});
+      socket.emit("data", {team:team, match:match, type:"ballload", data:save["ballload"]});
       console.log("largeball");
       document.getElementById('s').classList.remove("selected")
       document.getElementById('m').classList.remove("selected")
@@ -104,7 +101,7 @@
 
     var lowball = function() {
       save["lowball"] += 1;
-      socket.emit("data", {team:4924, type:"lowball", data:save["lowball"]});
+      socket.emit("data", {team:team, match:match, type:"lowball", data:save["lowball"]});
       console.log("lowball");
       document.getElementById('low-ball-score').innerHTML = save["lowball"];
     };
@@ -112,7 +109,7 @@
     var mechanum = function() {
       console.log("mechanum");
       save["drivechain"] = 1;
-      socket.emit("data", {team:4924, type:"drivechain", data:save["drivechain"]});
+      socket.emit("data", {team:team, match:match, type:"drivechain", data:save["drivechain"]});
       document.getElementById('mechanum').classList.add("selected");
       document.getElementById('standard').classList.remove("selected");
     };
@@ -120,7 +117,7 @@
     var standard = function() {
       console.log("standard");
       save["drivechain"] = 2;
-      socket.emit("data", {team:4924, type:"drivechain", data:save["drivechain"]});
+      socket.emit("data", {team:team, match:match, type:"drivechain", data:save["drivechain"]});
       document.getElementById('mechanum').classList.remove("selected");
       document.getElementById('standard').classList.add("selected");
     };
@@ -128,13 +125,19 @@
     var toggle = function(ev) {
       console.log(ev.id);
       save[ev.id] = !save[ev.id];
-      socket.emit("data", {team:4924, type:ev.id, data:save[ev.id]});
+      socket.emit("data", {team:team, match:match, type:ev.id, data:save[ev.id]});
       if(save[ev.id]) {
         document.getElementById(ev.id).classList.add("selected");
       } else {
         document.getElementById(ev.id).classList.remove("selected");
       };
     };
+
+    socket.on("matches", function(msg) {
+      matches = msg
+      team = matches[Number(document.location.href.split('').reverse().join('').slice(0, document.location.href.split('').reverse().join('').search('/')))][0];
+      match = matches[Number(document.location.href.split('').reverse().join('').slice(0, document.location.href.split('').reverse().join('').search('/')))][1];
+    });
 
   </script>
 </html>

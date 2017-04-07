@@ -17,6 +17,10 @@
     var socket = io();
     var save = {"team": 0, "match": 0, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
 
+    var textClick = function() {
+      document.location.href = "/match/" + event.target.id;
+    };
+
     socket.on("matches", function(msg) {
       for(var i = 0; i < elements.children.length; i++) {
         elements.removeChild(elements.children[i]);
@@ -27,7 +31,7 @@
           text = document.createElement('h2');
           text.textContent = "Team: " +msg[i][0]+ "  Match: " +parseInt(msg[i][1]);
           text.id = i;
-          //text.onclick = textClick;
+          text.onclick = textClick;
           elements.appendChild(text);
         };
       };

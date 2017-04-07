@@ -4,8 +4,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
-var emptyMatch = function() {
-  return {"gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+var emptyMatch = function(t=0, m=0) {
+  return {"team": t, "match": m, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
 };
 
 var matches = [["4924", 1, false], ["3861", 4, false], ["180", 4, false], ["5005", 5, false]];
@@ -31,6 +31,9 @@ io.on('connection', function(socket){
   console.log(msg.team);
   console.log(msg.type);
   console.log(msg.data);
+  if(save.length-1<msg.match) {
+    save.push([emptyMatch(msg.team, msg.match), ])
+  }
   save[msg.type] = msg.data;
   console.log(save);
   });
