@@ -3,12 +3,22 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var fs =require("fs");
+
+try {
+  var save = fs.readFileSync("data.txt");
+} catch(err) {
+  fs.writeFileSync('data.txt', '{}');
+  var content = fs.readFileSync("data.txt");
+}
+
+content = JSON.parse(content);
 
 var emptyMatch = function(t=0, m=0) {
-  return {"team": t, "match": m, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
+  return {"team": t, "match": m, "done":false, "gears":0,"highball":0,"lowball":0,"ballload":0,"autogear":false,"autoline":false,"autolow":false,"autohigh":false,"autorope":false,"drivechain":0,"groundgear":false,"groundball":false,"player":false,"hopper":false,"macrogear":false,"macroball":false};
 };
 
-var matches = [["4924", 1, false], ["3861", 1, false], ["180", 4, false], ["5005", 5, false]];
+var matches = [["4740", 1, false], ["2010", 1, false], ["6373", 1, false], ["6491", 1, false], ["2386", 2, false], ["5005", 2, false], ["69", 2, false], ["5053", 3, false], ["343", 3, false], ["2973", 4, false], ["538", 4, false], ["5721", 4, false], ["1758", 5, false], ["6366", 5, false], ["5616", 6, false], ["1369", 6, false], ["6055", 6, false]];
 var save = [];
 
 app.use(express.static(path.join(__dirname, '/pub')));
@@ -45,12 +55,14 @@ io.on('connection', function(socket){
   socket.on('lock', function(msg){
   console.log(msg.team);
   console.log(msg.match);
+  save[msg.match-1][msg.team]["done"] = true;
   for(i in matches) {
     if((matches[i][0] == msg.team) && (matches[i][1] == msg.match)) {
       matches[i][2] = true;
     };
   };
   console.log(matches);
+  fs.writeFileSync('data.txt', JSON.stringify(save));
   });
   socket.on('disconnect', function(){
   console.log('user disconnected');
