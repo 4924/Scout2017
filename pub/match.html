@@ -142,8 +142,8 @@
 
     socket.on("matches", function(msg) {
       matches = msg
-      team = matches[Number(document.location.href.split('').reverse().join('').slice(0, document.location.href.split('').reverse().join('').search('/')))][0];
-      match = matches[Number(document.location.href.split('').reverse().join('').slice(0, document.location.href.split('').reverse().join('').search('/')))][1];
+      team = matches[Number(document.location.href.slice(document.location.href.length-document.location.href.split('').reverse().join('').search('/'), document.location.href.length))][0];
+      match = matches[Number(document.location.href.slice(document.location.href.length-document.location.href.split('').reverse().join('').search('/'), document.location.href.length))][1];
     });
 
   </script>
