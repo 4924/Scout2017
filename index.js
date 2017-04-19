@@ -48,8 +48,9 @@ io.on('connection', function(socket){
   });
   socket.on('data', function(msg){
   console.log(msg.team);
-  console.log(msg.type);
+  console.log(msg.match);
   console.log(msg.data);
+  console.log(!save.hasOwnProperty(String(msg.match)));
   if(!save.hasOwnProperty(String(msg.match))) {
     save[String(msg.match)] = {}
     console.log("new match");
