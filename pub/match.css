@@ -15,7 +15,7 @@ h2 {
   text-align: center;
   position: absolute; left: 32%; top: 15%;
   border: 2px solid black;
-  width: 40%;
+  width: 41%;
   height: 50%;
 }
 
@@ -23,7 +23,7 @@ h2 {
   text-align: center;
   position: absolute; left: 73%; top: 15%;
   border: 2px solid black;
-  width: 26%;
+  width: 30%;
   height: 50%;
 }
 
@@ -32,17 +32,17 @@ h2 {
   position: absolute; left: 1%; bottom: 1%;
   border: 2px solid black;
   width: 60%;
-  height: 32%;
+  height: 32.5%;
 }
 
 #gearup {
-  width: 50%;
+  width: 40%;
   height: 30%;
   font-size: 2.5em;
 }
 
 #geardown {
-  width: 18%;
+  width: 35%;
   font-size: 1.3em;
 }
 
@@ -146,6 +146,7 @@ h2 {
 
 #hopper{
   width: 20%;
+  height: 24%;
   font-size: 1.3em;
   position: inherit; left: 52%; top: 75%;
 }
@@ -158,6 +159,7 @@ h2 {
 
 #macroball{
   width: 20%;
+  height: 24%
   font-size: 1.3em;
   position: inherit; left: 76%; top: 75%;
 }
@@ -192,4 +194,8 @@ h2 {
   border: 2px solid black;
   padding: 0;
   outline: 0;
+}
+button {
+  border: 1px solid black;
+  padding: 0px;
 }
